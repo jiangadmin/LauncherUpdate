@@ -53,7 +53,6 @@ public class Update_Servlet extends AsyncTask<String, Integer, UpdateEntity> {
     @Override
     protected void onPostExecute(UpdateEntity entity) {
         super.onPostExecute(entity);
-        Toast.makeText(activity,"发送了一次请求",Toast.LENGTH_LONG).show();
         if (entity.getErrorcode() == 1000) {
             if (entity.getResult().getBuildNum() > Tools.getVersionCode(MyAppliaction.context)) {
                 Loading.show(activity, "更新中");

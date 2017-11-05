@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.ActivityCompat;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,17 +22,21 @@ public class Main_Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        timeCount = new TimeCount(10 *60* 1000, 1000);
+        timeCount = new TimeCount(2 *60* 1000, 1000);
         timeCount.start();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Loading.dismiss();
         if (isForeground()){
+            ActivityCompat.finishAfterTransition(this);
 
-                Intent home=new Intent(Intent.ACTION_MAIN);
-                home.addCategory(Intent.CATEGORY_HOME);  
-                startActivity(home);
-
+            //            Intent home=new Intent(Intent.ACTION_MAIN);
+//            home.addCategory(Intent.CATEGORY_HOME);
+//            startActivity(home);
         }
-
     }
 
     /**
@@ -51,6 +57,10 @@ public class Main_Activity extends Activity {
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 
     /**
      * 计时器
@@ -67,19 +77,6 @@ public class Main_Activity extends Activity {
             //再次启动
             new Update_Servlet(Main_Activity.this).execute();
 
-            //即没连接wifi也没插网线
-//            if (!Tools.isWifiConnected() && !Tools.isLineConnected() && !Tools.isNetworkConnected() && num == 1)
-//
-//                new NetWarningDialog(MyAppliaction.activity).show();
-//            else {
-//                //如果是有线网络接入
-//                if (Tools.isLineConnected() && num == 3 && MyAppliaction.activity != null)
-//                    new NetWarningDialog(MyAppliaction.activity).show();
-//
-//                //如果是WIFI接入
-//                if (Tools.isWifiConnected() && num == 10 && MyAppliaction.activity != null)
-//                    new NetWarningDialog(MyAppliaction.activity).show();
-//            }
         }
 
         @Override
