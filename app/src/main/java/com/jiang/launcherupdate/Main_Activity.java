@@ -24,6 +24,9 @@ public class Main_Activity extends Activity {
         super.onCreate(savedInstanceState);
         timeCount = new TimeCount(2 *60* 1000, 1000);
         timeCount.start();
+        LogUtil.e(TAG,"Launcher_Update_Start");
+        if (Tools.isNetworkConnected())
+            new Update_Servlet(Main_Activity.this).execute();
     }
 
     @Override
@@ -32,10 +35,7 @@ public class Main_Activity extends Activity {
         Loading.dismiss();
         if (isForeground()){
             ActivityCompat.finishAfterTransition(this);
-
-            //            Intent home=new Intent(Intent.ACTION_MAIN);
-//            home.addCategory(Intent.CATEGORY_HOME);
-//            startActivity(home);
+            Toast.makeText(this,"躲到后台去",Toast.LENGTH_SHORT).show();
         }
     }
 

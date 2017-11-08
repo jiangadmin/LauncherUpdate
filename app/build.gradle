@@ -6,7 +6,7 @@ android {
         jiang {
             keyAlias 'jiang'
             keyPassword 'jiangadmin'
-            storeFile file('C:/Users/wwwfa/Desktop/TVLauncher/Jiang.jks')
+            storeFile file('/Users/jiangyao/Desktop/LauncherUpdate/Jiang.jks')
             storePassword 'jiangadmin'
         }
     }
@@ -24,8 +24,8 @@ android {
         applicationId "com.jiang.launcherupdate"
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.3"
         signingConfig signingConfigs.jiang
     }
 
@@ -34,8 +34,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.jiang
+
         }
     }
+
 }
 
 dependencies {
@@ -43,5 +45,4 @@ dependencies {
     compile 'com.android.support:leanback-v17:26.1.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.wang.avi:library:2.1.3'
-
 }

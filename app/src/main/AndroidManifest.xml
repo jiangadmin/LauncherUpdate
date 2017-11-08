@@ -42,8 +42,7 @@
 
         <activity
             android:name=".Main_Activity"
-            android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.NoDisplay">
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
