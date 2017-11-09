@@ -3,11 +3,9 @@ package com.jiang.launcherupdate;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -22,9 +20,9 @@ public class Main_Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        timeCount = new TimeCount(2 *60* 1000, 1000);
+        timeCount = new TimeCount(2 * 60 * 1000, 1000);
         timeCount.start();
-        LogUtil.e(TAG,"Launcher_Update_Start");
+        LogUtil.e(TAG, "Launcher_Update_Start");
         if (Tools.isNetworkConnected())
             new Update_Servlet(Main_Activity.this).execute();
     }
@@ -33,10 +31,8 @@ public class Main_Activity extends Activity {
     protected void onResume() {
         super.onResume();
         Loading.dismiss();
-        if (isForeground()){
+        if (isForeground())
             ActivityCompat.finishAfterTransition(this);
-            Toast.makeText(this,"躲到后台去",Toast.LENGTH_SHORT).show();
-        }
     }
 
     /**
@@ -44,7 +40,7 @@ public class Main_Activity extends Activity {
      *
      * @return
      */
-    public  boolean isForeground() {
+    public boolean isForeground() {
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> processes = activityManager.getRunningAppProcesses();
         for (ActivityManager.RunningAppProcessInfo processInfo : processes) {
