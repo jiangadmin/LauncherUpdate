@@ -33,15 +33,16 @@
 
     <uses-permission android:name="android.permission.SYSTEM_ALTER_WINDOW" />
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".MyAppliaction"
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@android:style/Theme.NoDisplay">
 
         <activity
-            android:theme="@android:style/Theme.NoDisplay"
             android:name=".Main_Activity"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -49,7 +50,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <receiver android:name=".BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

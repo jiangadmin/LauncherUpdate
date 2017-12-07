@@ -350,7 +350,12 @@ public final class Tools {
      * @return
      */
     public static String getVersionName(Context context) {
-        return getPackageInfo(context).versionName;
+        if (getPackageInfo(context) == null) {
+            return "0.0.0";
+        } else {
+            return getPackageInfo(context).versionName;
+        }
+
     }
 
     /**
@@ -360,7 +365,11 @@ public final class Tools {
      * @return
      */
     public static int getVersionCode(Context context) {
-        return getPackageInfo(context).versionCode;
+        if (getPackageInfo(context) == null) {
+            return -1;
+        } else {
+            return getPackageInfo(context).versionCode;
+        }
     }
 
     private static PackageInfo getPackageInfo(Context context) {
@@ -368,8 +377,7 @@ public final class Tools {
 
         try {
             PackageManager pm = context.getPackageManager();
-            pi = pm.getPackageInfo("com.jiang.tvlauncher",
-                    PackageManager.GET_CONFIGURATIONS);
+            pi = pm.getPackageInfo("com.jiang.tvlauncher", PackageManager.GET_CONFIGURATIONS);
 
             return pi;
         } catch (Exception e) {

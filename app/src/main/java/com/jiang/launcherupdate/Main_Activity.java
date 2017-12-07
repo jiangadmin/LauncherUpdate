@@ -24,7 +24,7 @@ public class Main_Activity extends Activity {
         timeCount.start();
         LogUtil.e(TAG, "Launcher_Update_Start");
         if (Tools.isNetworkConnected())
-            new Update_Servlet(Main_Activity.this).execute();
+            new Update_Servlet(this).execute();
     }
 
     @Override

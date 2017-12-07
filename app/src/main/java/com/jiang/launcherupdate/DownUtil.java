@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Environment;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -35,6 +36,7 @@ public class DownUtil {
     public void downLoad(final String path, final String fileName, final boolean showpd) {
         // 进度条对话框
         pd = new ProgressDialog(activity);
+        pd.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         pd.setMessage("下载中...");
         pd.setCanceledOnTouchOutside(false);
@@ -44,7 +46,7 @@ public class DownUtil {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-//                    Toast.makeText(activity, "正在下载请稍后", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "正在下载请稍后", Toast.LENGTH_SHORT).show();
                     return true;
                 } else {
                     return false;
@@ -57,8 +59,15 @@ public class DownUtil {
             Loading.dismiss();
 
         } else {
-            if (showpd)
-                pd.show();
+            if (showpd) {
+                try {
+                    pd.show();
+                } catch (Exception e) {
+                    LogUtil.e(TAG, e.getMessage());
+                    Toast.makeText(activity, "发现新版本", Toast.LENGTH_LONG).show();
+                }
+            }
+
             //下载的子线程
             new Thread() {
                 @Override
@@ -69,8 +78,13 @@ public class DownUtil {
                         sleep(1000);
                         // 安装APK文件
                         LogUtil.e(TAG, "文件下载完成" + fileName);
-                        if (showpd)
-                            pd.dismiss(); // 结束掉进度条对话框
+                        if (showpd) {
+                            try {
+                                pd.dismiss(); // 结束掉进度条对话框
+                            } catch (Exception e) {
+                                LogUtil.e(TAG, "无法关闭");
+                            }
+                        }
                         //如果是安装包
                         if (fileName.contains(".apk"))
                             MyAppliaction.apiManager.set("setInstallApk", file.getPath(), null, null, null);
