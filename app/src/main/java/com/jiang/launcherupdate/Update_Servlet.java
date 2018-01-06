@@ -2,7 +2,7 @@ package com.jiang.launcherupdate;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.Toast;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
@@ -27,13 +27,22 @@ public class Update_Servlet extends AsyncTask<String, Integer, UpdateEntity> {
 
     @Override
     protected UpdateEntity doInBackground(String... strings) {
+        UpdateEntity entity;
         Map map = new HashMap();
+        if (!TextUtils.isEmpty(MyAppliaction.ID)) {
+            map.put("serialNum", MyAppliaction.ID);
+        } else {
+            entity = new UpdateEntity();
+            entity.setErrorcode(-3);
+            entity.setErrormsg("数据缺失");
+            return entity;
+        }
         map.put("versionNum", Tools.getVersionName(MyAppliaction.context));
         map.put("buildNum", String.valueOf(Tools.getVersionCode(MyAppliaction.context)));
 
         String res = HttpUtil.doPost(Const.URL + "cms/appVersionController/findNewVersion.do", map);
 
-        UpdateEntity entity;
+
         if (res != null) {
             try {
                 entity = new Gson().fromJson(res, UpdateEntity.class);

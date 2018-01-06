@@ -5,12 +5,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.text.TextUtils;
 
-import com.google.gson.Gson;
 import com.xgimi.xgimiapiservice.XgimiApiManager;
 
 /**
@@ -28,6 +25,8 @@ public class MyAppliaction extends Application {
     public static Context context;
     public static XgimiApiManager apiManager;
 
+    public static String ID;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,6 +43,13 @@ public class MyAppliaction extends Application {
             LogUtil.e(TAG, "连接AIDL成功");
             //得到远程服务
             apiManager = XgimiApiManager.Stub.asInterface(iBinder);
+            try {
+                ID = apiManager.get("getMachineId", null, null);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
+
         }
 
         //断开服务的时候

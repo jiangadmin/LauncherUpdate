@@ -24,8 +24,8 @@ android {
         applicationId "com.jiang.launcherupdate"
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 8
-        versionName "1.0.8"
+        versionCode 9
+        versionName "1.0.9"
         signingConfig signingConfigs.jiang
     }
 
