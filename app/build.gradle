@@ -6,7 +6,7 @@ android {
         jiang {
             keyAlias 'jiang'
             keyPassword 'jiangadmin'
-            storeFile file('/Users/jiangyao/Desktop/LauncherUpdate/Jiang.jks')
+            storeFile file('C:/Users/wwwfa/Desktop/LauncherUpdate/Jiang.jks')
             storePassword 'jiangadmin'
         }
     }
@@ -24,8 +24,8 @@ android {
         applicationId "com.jiang.launcherupdate"
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 9
-        versionName "1.0.9"
+        versionCode 11
+        versionName "1.1.1"
         signingConfig signingConfigs.jiang
     }
 
